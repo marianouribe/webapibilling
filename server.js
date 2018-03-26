@@ -80,7 +80,7 @@ var  executeQuery = function(res, query){
 app.get('/api/articulo', function(req , res){
                 var query = "SELECT top 3 A.CodigoArticulo IdArticulo,A.Descripcion DescripcionArticulo,";
                     query += " A.CostoUnitario PrecioUnitarioArticulo, CONVERT(VARCHAR(MAX),B.FileData,1) Data FROM ";
-                    query += " Tbl_MaestroArticulo A INNER JOIN Tbl_ImagenesArticulos B "
+                    query += " Tbl_MaestroArticulo A INNER JOIN Tbl_ImagenesArticulos B  "
                     query += " ON A.CodigoArticulo = B.CodigoArticulo ";
                 executeQuery(res, query);
 });
