@@ -78,12 +78,24 @@ var  executeQuery = function(res, query){
 
 //GET API
 app.get('/api/articulo', function(req , res){
-                var query = "SELECT top 3 A.CodigoArticulo IdArticulo,A.Descripcion DescripcionArticulo,";
-                    query += " A.CostoUnitario PrecioUnitarioArticulo, CONVERT(VARCHAR(MAX),B.FileData,1) Data FROM ";
-                    query += " Tbl_MaestroArticulo A INNER JOIN Tbl_ImagenesArticulos B  "
-                    query += " ON A.CodigoArticulo = B.CodigoArticulo ";
+                var query = "SELECT TOP 10 CodigoArticulo, Descripcion DescripcionArticulo,";
+                    query += " CostoUnitario PrecioUnitarioArticulo FROM Tbl_MaestroArticulo";
+                    query += " ORDER BY CodigoArticulo";
+                    
                 executeQuery(res, query);
 });
+
+//GET API
+app.get('/api/articulo/:filtro', function(req , res){
+                var query = "SELECT TOP 10 CodigoArticulo, Descripcion DescripcionArticulo,";
+                    query += " CostoUnitario PrecioUnitarioArticulo FROM Tbl_MaestroArticulo";
+                    query += " WHERE CodigoArticulo LIKE '%" + req.params.filtro + "%'";
+                    query += " OR Descripcion LIKE '%" + req.params.filtro + "%'";
+                    query += " OR CostoUnitario = " + req.params.filtro + " ORDER BY CodigoArticulo";
+                    
+                executeQuery(res, query);
+});
+
 
 
 //POST API
