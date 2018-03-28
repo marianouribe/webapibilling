@@ -70,14 +70,14 @@ var  executeQuery = function(res, query){
                                         console.log(registros);
                                         res.send(registros);
                                         sql.close();
-                                            }
+                                        }
                                });
                        }
       });           
 }
 
 //GET API
-app.get('/api/articulo', function(req , res){
+app.get('/articulo:/amount', function(req , res){
                 var query = "SELECT TOP 10 CodigoArticulo, Descripcion DescripcionArticulo,";
                     query += " CostoUnitario PrecioUnitarioArticulo FROM Tbl_MaestroArticulo";
                     query += " ORDER BY CodigoArticulo";
@@ -86,12 +86,12 @@ app.get('/api/articulo', function(req , res){
 });
 
 //GET API
-app.get('/api/articulo/:filtro', function(req , res){
-                var query = "SELECT TOP 10 CodigoArticulo, Descripcion DescripcionArticulo,";
+app.get('/articulo/:search:/amount', function(req , res){
+                var query = "SELECT TOP " + req.param.amount + " CodigoArticulo, Descripcion DescripcionArticulo,";
                     query += " CostoUnitario PrecioUnitarioArticulo FROM Tbl_MaestroArticulo";
-                    query += " WHERE CodigoArticulo LIKE '%" + req.params.filtro + "%'";
-                    query += " OR Descripcion LIKE '%" + req.params.filtro + "%'";
-                    query += " OR CostoUnitario = " + req.params.filtro + " ORDER BY CodigoArticulo";
+                    query += " WHERE CodigoArticulo LIKE '%" + req.params.search + "%'";
+                    query += " OR Descripcion LIKE '%" + req.params.search + "%'";
+                    query += " OR CostoUnitario LIKE '%" + req.params.search + "%' ORDER BY CodigoArticulo";
                     
                 executeQuery(res, query);
 });
@@ -99,19 +99,19 @@ app.get('/api/articulo/:filtro', function(req , res){
 
 
 //POST API
- app.post('/api/usuario', function(req , res){
+ app.post('/usuario', function(req , res){
                 var query = 'INSERT INTO [Tbl_usuarios] (Nombre,Email,Clave) VALUES (req.body.Nombre,req.body.Email,req.body.Clave)';
                 executeQuery (res, query);
 });
 
 //PUT API
- app.put('/api/usuario/:Usuario_Id', function(req , res){
+ app.put('/usuario/:Usuario_Id', function(req , res){
                 var query = "UPDATE [Tbl_usuarios] SET Nombre= " + req.body.Nombre + " , Email=  " + req.body.Email + "  WHERE Usuario_Id= " + req.params.Usuario_Id;
                 executeQuery (res, query);
 });
 
 // DELETE API
- app.delete('/api/usuario /:Usuario_Id', function(req , res){
+ app.delete('/usuario /:Usuario_Id', function(req , res){
                 var query = "DELETE FROM [Tbl_usuarios] WHERE Usuario_Id=" + req.params.Usuario_Id;
                 executeQuery (res, query);
 });
