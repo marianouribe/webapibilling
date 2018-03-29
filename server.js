@@ -67,7 +67,7 @@ var  executeQuery = function(res, query){
                                       res.send(err);
                                      }
                                      else {
-                                        console.log(registros);
+                                        // console.log(registros);
                                         res.send(registros);
                                         sql.close();
                                         }
@@ -77,8 +77,8 @@ var  executeQuery = function(res, query){
 }
 
 //GET API
-app.get('/articulo:/amount', function(req , res){
-                var query = "SELECT TOP 10 CodigoArticulo, Descripcion DescripcionArticulo,";
+app.get('/api/articulo/:amount', function(req , res){
+                var query = "SELECT TOP " + req.params.amount + " CodigoArticulo, Descripcion DescripcionArticulo,";
                     query += " CostoUnitario PrecioUnitarioArticulo FROM Tbl_MaestroArticulo";
                     query += " ORDER BY CodigoArticulo";
                     
@@ -86,8 +86,8 @@ app.get('/articulo:/amount', function(req , res){
 });
 
 //GET API
-app.get('/articulo/:search:/amount', function(req , res){
-                var query = "SELECT TOP " + req.param.amount + " CodigoArticulo, Descripcion DescripcionArticulo,";
+app.get('/api/articulo/:amount/:search', function(req , res){
+                var query = "SELECT TOP " + req.params.amount + " CodigoArticulo, Descripcion DescripcionArticulo,";
                     query += " CostoUnitario PrecioUnitarioArticulo FROM Tbl_MaestroArticulo";
                     query += " WHERE CodigoArticulo LIKE '%" + req.params.search + "%'";
                     query += " OR Descripcion LIKE '%" + req.params.search + "%'";
@@ -111,7 +111,7 @@ app.get('/articulo/:search:/amount', function(req , res){
 });
 
 // DELETE API
- app.delete('/usuario /:Usuario_Id', function(req , res){
+ app.delete('/usuario/:Usuario_Id', function(req , res){
                 var query = "DELETE FROM [Tbl_usuarios] WHERE Usuario_Id=" + req.params.Usuario_Id;
                 executeQuery (res, query);
 });
