@@ -81,7 +81,7 @@ app.get('/api/articulo/:amount', function(req , res){
                 var query = "SELECT TOP " + req.params.amount + " CodigoArticulo, Descripcion DescripcionArticulo,";
                     query += " CostoUnitario PrecioUnitarioArticulo FROM Tbl_MaestroArticulo";
                     query += " ORDER BY CodigoArticulo";
-                    
+                     
                 executeQuery(res, query);
 });
 
